@@ -9,7 +9,7 @@ use File::Find::Rule;
 use GraphViz2;
 
 use lib '/Users/gene/sandbox/Music';
-use Bach;
+use Bach;  # https://github.com/ology/Music/blob/master/Bach.pm
 
 our $VERSION = '0.01';
 
