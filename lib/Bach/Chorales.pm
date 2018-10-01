@@ -83,8 +83,8 @@ sub _build_diagram {
     # Read in the Bach data
     my ( undef, $progression ) = Bach::read_bach( DATA, 0 );
 
-    # Build the seen bigram and score hashes
-    my %seen;
+    # Build the bigram and score hashes
+    my %bigram;
     my %score;
 
     my $last = '';
@@ -95,8 +95,8 @@ sub _build_diagram {
         if ( $last ) {
             $score{ $last . ' ' . $chord }++;
 
-            if ( !grep { $last eq $_ } @{ $seen{$chord} } ) {
-                push @{ $seen{$last} }, $chord;
+            if ( !grep { $last eq $_ } @{ $bigram{$chord} } ) {
+                push @{ $bigram{$last} }, $chord;
             }
         }
 
@@ -123,13 +123,13 @@ sub _build_diagram {
     my %edges;
 
     # Build the network graph
-    for my $i ( keys %seen ) {
+    for my $i ( keys %bigram ) {
         my $color = $i eq $keys{$id} ? 'red' : 'black';
 
         $g->add_node( name => $i, color => $color )
             unless $nodes{$i}++;
 
-        for my $j ( @{ $seen{$i} } ) {
+        for my $j ( @{ $bigram{$i} } ) {
             $color = $j eq $keys{$id} ? 'red' : 'black';
 
             $g->add_node( name => $j, color => $color )
