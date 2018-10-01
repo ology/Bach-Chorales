@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-# Do not run this program. It was made to process the mid/pdf filenames before release.
+# Do not run this program. It was made to fix the pdf filenames before release.
 
 use File::Copy;
 use File::Find::Rule;
