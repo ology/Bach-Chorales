@@ -5,7 +5,7 @@
             <h1>[% page_title %]</h1>
         </div>
 
-        <br>
+        <hr>
 
         <table border="0">
         <tr>
@@ -40,8 +40,10 @@
 [% IF chorale %]
         <h3>BWV [% bwv %] - "[% title %]"</h3>
 
-        Bigram chord progression transition network diagram derived from the
-        <a href="https://archive.ics.uci.edu/ml/datasets/Bach+Choral+Harmony">UCI Bach Choral Harmony Data Set</a>:<br>
+        Bigram chord progression transition network diagram derived from
+        <br>
+        the <a href="https://archive.ics.uci.edu/ml/datasets/Bach+Choral+Harmony">UCI Bach Choral Harmony Data Set</a>:
+        <p>
         <img src="[% image %]" />
 [% END %]
 
