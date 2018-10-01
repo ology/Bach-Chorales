@@ -83,30 +83,24 @@ sub _build_diagram {
     # Read in the Bach data
     my ( undef, $progression ) = Bach::read_bach( DATA, 0 );
 
+    # Build the seen bigram and score hashes
     my %seen;
     my %score;
 
-    # Build the seen bigram and score hashes
-    for my $song ( keys %$progression ) {
-        next unless $song eq $id;
+    my $last = '';
 
-        my $last = '';
+    for my $cluster ( @{ $progression->{$id} } ) {
+        my ( undef, undef, $chord ) = split /,/, $cluster;
 
-        for my $cluster ( @{ $progression->{$song} } ) {
-            my ( undef, undef, $chord ) = split /,/, $cluster;
+        if ( $last ) {
+            $score{ $last . ' ' . $chord }++;
 
-            if ( $last ) {
-                $score{ $last . ' ' . $chord }++;
-
-                if ( !grep { $last eq $_ } @{ $seen{$chord} } ) {
-                    push @{ $seen{$last} }, $chord;
-                }
+            if ( !grep { $last eq $_ } @{ $seen{$chord} } ) {
+                push @{ $seen{$last} }, $chord;
             }
-
-            $last = $chord;
         }
 
-        last;
+        $last = $chord;
     }
 
     my $g = GraphViz2->new(
