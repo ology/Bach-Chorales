@@ -1,0 +1,48 @@
+<div id="page">
+
+    <div id="content">
+        <div id="header">
+            <h1>[% page_title %]</h1>
+        </div>
+
+        <p>
+
+        <table border="0">
+        <tr>
+        <td>
+        <form action="/" method="post">
+            Select a chorale:
+            <br>
+            <select name="chorale" size="3" onchange="this.form.submit()">
+[% FOR key in chorales.keys.sort %]
+    [% IF key == chorale %]
+        [% bwv = chorales.$key.bwv %]
+        [% title = chorales.$key.title %]
+    [% END %]
+                <option value="[% key %]" [% IF key == chorale %]selected[% END %]>[% chorales.$key.bwv %] - [% chorales.$key.title %]</option>
+[% END %]
+            </select>
+            <br>
+        </form>
+        </td>
+[% IF chorale %]
+        <td valign="center">
+            <a href="/chorales/[% chorale _ '.mid' %]">MIDI</a>
+            <br>
+            <a href="/chorales/[% chorale _ '.pdf' %]">PDF</a>
+        </td>
+[% END %]
+        </tr>
+        </table>
+
+        <p>
+
+[% IF chorale %]
+        <h3>BWV [% bwv %] - "[% title %]"</h3>
+
+        <img src="[% image %]" />
+[% END %]
+
+    </div>
+
+</div>
