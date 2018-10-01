@@ -91,9 +91,12 @@ sub _build_diagram {
         for my $cluster ( @{ $progression->{$song} } ) {
             my ( undef, undef, $chord ) = split /,/, $cluster;
 
-            if ( $last && !grep { $last eq $_ } @{ $seen{$chord} } ) {
-                push @{ $seen{$last} }, $chord;
+            if ( $last ) {
                 $score{ $last . ' ' . $chord }++;
+
+                if ( !grep { $last eq $_ } @{ $seen{$chord} } ) {
+                    push @{ $seen{$last} }, $chord;
+                }
             }
 
             $last = $chord;
