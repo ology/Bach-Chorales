@@ -47,6 +47,7 @@ any '/' => sub {
 
     open( my $fh, '<', $file ) or die "Can't read $file: $!";
 
+    # Build the chorales hash
     while ( my $line = readline($fh) ) {
         chomp $line;
         next if $line =~ /#/ || $line =~ /^\s*$/ || $line =~ /UCI-ID/;
@@ -83,6 +84,7 @@ sub _build_diagram {
     my %seen;
     my %score;
 
+    # Build the seen bigram and score hashes
     for my $song ( keys %$progression ) {
         next unless $song eq $id;
 
