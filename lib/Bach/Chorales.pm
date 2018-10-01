@@ -41,7 +41,7 @@ any '/' => sub {
         unlink $img;
     }
 
-    my $file = 'public/BWV-titles.txt';
+    my $file = 'public/data/BWV-titles.txt';
 
     my $chorales = {};
 
@@ -77,7 +77,7 @@ sub _build_diagram {
     my ( $dir, $id ) = @_;
 
     # Read in the Bach data
-    my $data = 'public/jsbach_chorals_harmony.data';
+    my $data = 'public/data/jsbach_chorals_harmony.data';
     my ( undef, $progression ) = Bach::read_bach( $data, 0 );
 
     my %seen;
@@ -113,7 +113,7 @@ sub _build_diagram {
 
     # Collect the key signatures
     my %keys;
-    my $file = 'public/BWV-keys.txt';
+    my $file = 'public/data/BWV-keys.txt';
     open( my $fh, '<', $file ) or die "Can't read $file: $!";
     while ( my $line = readline($fh) ) {
         chomp $line;
