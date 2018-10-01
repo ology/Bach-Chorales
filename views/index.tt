@@ -26,7 +26,7 @@
         </form>
         </td>
 [% IF chorale %]
-        <td valign="center">
+        <td valign="center" style="padding: 15px;">
             <a href="/chorales/[% chorale _ '.mid' %]">MIDI</a>
             <br>
             <a href="/chorales/[% chorale _ '.pdf' %]">PDF</a>
