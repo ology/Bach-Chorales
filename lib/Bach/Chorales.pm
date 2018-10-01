@@ -12,8 +12,9 @@ use lib '/Users/gene/sandbox/Music';
 use Bach;  # https://github.com/ology/Music/blob/master/Bach.pm
 
 use constant IMG_DIR => 'public/diagrams';
-use constant TITLES  => 'public/data/BWV-titles.txt';
 use constant DATA    => 'public/data/jsbach_chorals_harmony.data';
+use constant TITLES  => 'public/data/BWV-titles.txt';
+use constant KEYS    => 'public/data/BWV-keys.txt';
 use constant TYPE    => 'png';
 
 our $VERSION = '0.01';
@@ -116,8 +117,7 @@ sub _build_diagram {
 
     # Collect the key signatures
     my %keys;
-    my $file = 'public/data/BWV-keys.txt';
-    open( my $fh, '<', $file ) or die "Can't read $file: $!";
+    open( my $fh, '<', KEYS ) or die "Can't read " . KEYS . ": $!";
     while ( my $line = readline($fh) ) {
         chomp $line;
         my @parts = split /\s+/, $line;
