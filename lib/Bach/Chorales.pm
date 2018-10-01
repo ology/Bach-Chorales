@@ -35,8 +35,8 @@ any '/' => sub {
     my $img_dir = 'public/diagrams';
 
     # Purge old image files
-    my $yesterday = time - ( 24 * 60 * 60 );
-    my @imgs = File::Find::Rule->file()->name('*.png')->mtime("<$yesterday")->in($img_dir);
+    my $threshold = time - ( 30 * 60 );
+    my @imgs = File::Find::Rule->file()->name('*.png')->mtime("<$threshold")->in($img_dir);
     for my $img ( @imgs ) {
         unlink $img;
     }
