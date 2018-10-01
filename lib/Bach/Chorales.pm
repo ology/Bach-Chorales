@@ -25,7 +25,7 @@ Bach::Chorales - Display Bach Chorales
 
 =head1 DESCRIPTION
 
-A C<Bach::Chorales> object displays Bach corales.
+A C<Bach::Chorales> object displays Bach chorales.
 
 =head1 ROUTES
 
