@@ -1,4 +1,4 @@
-# Bach-Chorales
+# Bach::Chorales
 Display Bach Chorales
 
 To run, unzip the chorales.zip file and move its (PDF and MIDI file) contents to
