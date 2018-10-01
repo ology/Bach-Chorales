@@ -40,8 +40,8 @@
 [% IF chorale %]
         <h3>BWV [% bwv %] - "[% title %]"</h3>
 
-        Bigram transition network diagram:
-        <br>
+        Bigram chord progression transition network diagram derived from the
+        <a href="https://archive.ics.uci.edu/ml/datasets/Bach+Choral+Harmony">UCI Bach Choral Harmony Data Set</a>:<br>
         <img src="[% image %]" />
 [% END %]
 
