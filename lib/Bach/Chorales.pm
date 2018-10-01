@@ -129,17 +129,13 @@ sub _build_diagram {
 
     # Build the network graph
     for my $i ( keys %seen ) {
-        my $color = 'black';
-        $color = 'red'
-            if $i eq $keys{$id};
+        my $color = $i eq $keys{$id} ? 'red' : 'black';
 
         $g->add_node( name => $i, color => $color )
             unless $nodes{$i}++;
 
         for my $j ( @{ $seen{$i} } ) {
-            $color = 'black';
-            $color = 'red'
-                if $j eq $keys{$id};
+            $color = $j eq $keys{$id} ? 'red' : 'black';
 
             $g->add_node( name => $j, color => $color )
                 unless $nodes{$j}++;
