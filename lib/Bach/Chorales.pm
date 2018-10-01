@@ -127,6 +127,7 @@ sub _build_diagram {
     my %nodes;
     my %edges;
 
+    # Build the network graph
     for my $i ( keys %seen ) {
         my $color = 'black';
         $color = 'red'
