@@ -113,6 +113,7 @@ sub _build_diagram {
     }
     close $fh;
 
+    # Build the network graph
     my $g = GraphViz2->new(
         global => { directed => 1 },
         node   => { shape => 'oval' },
@@ -122,7 +123,6 @@ sub _build_diagram {
     my %nodes;
     my %edges;
 
-    # Build the network graph
     for my $i ( keys %bigram ) {
         my $color = $i eq $keys{$id} ? 'red' : 'black';
 
