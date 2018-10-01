@@ -11,6 +11,11 @@ use GraphViz2;
 use lib '/Users/gene/sandbox/Music';
 use Bach;  # https://github.com/ology/Music/blob/master/Bach.pm
 
+use constant IMG_DIR => 'public/diagrams';
+use constant TITLES  => 'public/data/BWV-titles.txt';
+use constant DATA    => 'public/data/jsbach_chorals_harmony.data';
+use constant TYPE    => 'png';
+
 our $VERSION = '0.01';
 
 =head1 NAME
@@ -32,21 +37,17 @@ Main page.
 any '/' => sub {
     my $chorale = body_parameters->{chorale};
 
-    my $img_dir = 'public/diagrams';
-
     # Purge old image files
     my $threshold = time - ( 30 * 60 );
     my @imgs = File::Find::Rule->file()
-                               ->name('*.png')
+                               ->name( '*.' . TYPE )
                                ->mtime("<$threshold")
-                               ->in($img_dir);
+                               ->in(IMG_DIR);
     unlink $_ for @imgs;
-
-    my $file = 'public/data/BWV-titles.txt';
 
     my $chorales = {};
 
-    open( my $fh, '<', $file ) or die "Can't read $file: $!";
+    open( my $fh, '<', TITLES ) or die "Can't read " . TITLES . ": $!";
 
     # Build the chorales hash
     while ( my $line = readline($fh) ) {
@@ -64,7 +65,7 @@ any '/' => sub {
     close $fh;
 
     my $filename;
-    $filename = _build_diagram( $img_dir, $chorale )
+    $filename = _build_diagram( IMG_DIR, $chorale )
         if $chorale;
 
     template 'index' => {
@@ -79,8 +80,7 @@ sub _build_diagram {
     my ( $dir, $id ) = @_;
 
     # Read in the Bach data
-    my $data = 'public/data/jsbach_chorals_harmony.data';
-    my ( undef, $progression ) = Bach::read_bach( $data, 0 );
+    my ( undef, $progression ) = Bach::read_bach( DATA, 0 );
 
     my %seen;
     my %score;
@@ -147,9 +147,9 @@ sub _build_diagram {
         }
     }
 
-    my( undef, $filename ) = tempfile( DIR => $dir, SUFFIX => '.png' );
+    my( undef, $filename ) = tempfile( DIR => $dir, SUFFIX => '.' . TYPE );
 
-    $g->run( format => 'png', output_file => $filename );
+    $g->run( format => TYPE, output_file => $filename );
 
     $filename =~ s/^public//;
 
