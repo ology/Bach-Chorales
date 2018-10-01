@@ -103,12 +103,6 @@ sub _build_diagram {
         $last = $chord;
     }
 
-    my $g = GraphViz2->new(
-        global => { directed => 1 },
-        node   => { shape => 'oval' },
-        edge   => { color => 'grey' },
-    );
-
     # Collect the key signatures
     my %keys;
     open( my $fh, '<', KEYS ) or die "Can't read " . KEYS . ": $!";
@@ -118,6 +112,12 @@ sub _build_diagram {
         $keys{ $parts[0] } = $parts[1];
     }
     close $fh;
+
+    my $g = GraphViz2->new(
+        global => { directed => 1 },
+        node   => { shape => 'oval' },
+        edge   => { color => 'grey' },
+    );
 
     my %nodes;
     my %edges;
