@@ -5,7 +5,7 @@
             <h1>[% page_title %]</h1>
         </div>
 
-        <p>
+        <br>
 
         <table border="0">
         <tr>
@@ -40,6 +40,8 @@
 [% IF chorale %]
         <h3>BWV [% bwv %] - "[% title %]"</h3>
 
+        Bigram transition network diagram:
+        <br>
         <img src="[% image %]" />
 [% END %]
 
