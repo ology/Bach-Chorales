@@ -13,7 +13,7 @@
         <form action="/" method="post">
             Select a chorale:
             <br>
-            <select name="chorale" size="3" onchange="this.form.submit()">
+            <select name="chorale" size="4" onchange="this.form.submit()">
 [% FOR key in chorales.keys.sort %]
     [% IF key == chorale %]
         [% bwv = chorales.$key.bwv %]
