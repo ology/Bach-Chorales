@@ -40,9 +40,7 @@ any '/' => sub {
                                ->name('*.png')
                                ->mtime("<$threshold")
                                ->in($img_dir);
-    for my $img ( @imgs ) {
-        unlink $img;
-    }
+    unlink $_ for @imgs;
 
     my $file = 'public/data/BWV-titles.txt';
 
