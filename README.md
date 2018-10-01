@@ -13,15 +13,15 @@ Also, you must have my Bach.pm module which is located in my Music repo:
 
 Then fix the path at the top of lib/Bach/Chorales.pm to your cloned location.
 
-Then just start it up with say plack:
-
-> plackup bin/app.psgi
-
 Of course your system must have the required perl modules (as listed in the
 Makefile.PL PREREQ_PM section).
 
 > cpanm .
 
 To install them.
+
+Then just start it up with say plack:
+
+> plackup bin/app.psgi
 
 ![User interface](https://raw.githubusercontent.com/ology/Bach-Chorales/master/public/images/screenshot.png)
