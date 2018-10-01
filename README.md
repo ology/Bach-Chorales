@@ -14,3 +14,5 @@ Makefile.PL PREREQ_PM section).
 > cpanm .
 
 To install them.
+
+![User interface](https://raw.githubusercontent.com/ology/Bach-Chorales/master/public/images/screenshot.png)
