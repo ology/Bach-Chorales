@@ -42,9 +42,11 @@
 
         Bigram chord progression transition network diagram derived from
         <br>
-        the <a href="https://archive.ics.uci.edu/ml/datasets/Bach+Choral+Harmony">UCI Bach Choral Harmony Data Set</a>:
+        the <a href="https://archive.ics.uci.edu/ml/datasets/Bach+Choral+Harmony">UCI Bach Choral Harmony Data Set</a>.
         <p>
         <img src="[% image %]" />
+        <p>
+        The red node indicates the key signature.
 [% END %]
 
     </div>
