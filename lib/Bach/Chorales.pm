@@ -37,7 +37,6 @@ Main page.
 
 any '/' => sub {
     my $chorale = body_parameters->{chorale};
-    die 'Invalid chorale id' unless $chorale =~ /^\w+$/;
 
     _purge_diagrams();
 
