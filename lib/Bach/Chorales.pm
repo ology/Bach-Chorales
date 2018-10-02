@@ -38,13 +38,7 @@ Main page.
 any '/' => sub {
     my $chorale = body_parameters->{chorale};
 
-    # Purge old image files
-    my $threshold = time - ( 30 * 60 );
-    my @imgs = File::Find::Rule->file()
-                               ->name( '*.' . TYPE )
-                               ->mtime("<$threshold")
-                               ->in(IMG_DIR);
-    unlink $_ for @imgs;
+    _purge_diagrams();
 
     my $chorales = _build_chorales();
 
@@ -59,6 +53,16 @@ any '/' => sub {
         image      => $filename,
     };
 };
+
+sub _purge_diagrams {
+    my $threshold = time - ( 30 * 60 );
+
+    my @imgs = File::Find::Rule->file()
+                               ->name( '*.' . TYPE )
+                               ->mtime("<$threshold")
+                               ->in(IMG_DIR);
+    unlink $_ for @imgs;
+}
 
 sub _build_chorales {
     my $chorales = {};
