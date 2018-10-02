@@ -43,7 +43,7 @@ any '/' => sub {
     my $chorales = _build_chorales();
 
     my $filename;
-    $filename = _build_diagram( IMG_DIR, $chorale )
+    $filename = _build_diagram($chorale)
         if $chorale;
 
     template 'index' => {
@@ -87,7 +87,7 @@ sub _build_chorales {
 }
 
 sub _build_diagram {
-    my ( $dir, $id ) = @_;
+    my ($id) = @_;
 
     # Read in the Bach data
     my ( undef, $progression ) = Bach::read_bach( DATA, 0 );
@@ -150,7 +150,7 @@ sub _build_diagram {
         }
     }
 
-    my( undef, $filename ) = tempfile( DIR => $dir, SUFFIX => '.' . TYPE );
+    my( undef, $filename ) = tempfile( DIR => IMG_DIR, SUFFIX => '.' . TYPE );
 
     $g->run( format => TYPE, output_file => $filename );
 
