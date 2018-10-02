@@ -46,11 +46,11 @@ any '/' => sub {
                                ->in(IMG_DIR);
     unlink $_ for @imgs;
 
+    # Build the chorales hash
     my $chorales = {};
 
     open( my $fh, '<', TITLES ) or die "Can't read " . TITLES . ": $!";
 
-    # Build the chorales hash
     while ( my $line = readline($fh) ) {
         chomp $line;
         next if $line =~ /#/ || $line =~ /^\s*$/ || $line =~ /UCI-ID/;
