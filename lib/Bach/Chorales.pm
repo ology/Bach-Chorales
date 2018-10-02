@@ -11,11 +11,11 @@ use GraphViz2;
 use lib '/Users/gene/sandbox/Music';
 use Bach;  # https://github.com/ology/Music/blob/master/Bach.pm
 
+use constant TYPE    => 'png';
 use constant IMG_DIR => 'public/diagrams';
 use constant DATA    => 'public/data/jsbach_chorals_harmony.data';
 use constant TITLES  => 'public/data/BWV-titles.txt';
 use constant KEYS    => 'public/data/BWV-keys.txt';
-use constant TYPE    => 'png';
 
 our $VERSION = '0.01';
 
@@ -37,7 +37,6 @@ Main page.
 
 any '/' => sub {
     my $chorale = body_parameters->{chorale};
-
     die 'Invalid chorale id' unless $chorale =~ /^\w+$/;
 
     _purge_diagrams();
