@@ -182,7 +182,7 @@ L<GraphViz2>
 
 =head1 AUTHOR
  
-Gene Boggs <gene@ology.net>
+Gene Boggs <gene.boggs@gmail.com>
  
 =head1 COPYRIGHT AND LICENSE
  
