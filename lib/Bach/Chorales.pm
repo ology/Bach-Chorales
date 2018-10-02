@@ -114,12 +114,15 @@ sub _build_diagram {
 
     # Collect the key signatures
     my %keys;
+
     open( my $fh, '<', KEYS ) or die "Can't read " . KEYS . ": $!";
+
     while ( my $line = readline($fh) ) {
         chomp $line;
         my @parts = split /\s+/, $line;
         $keys{ $parts[0] } = $parts[1];
     }
+
     close $fh;
 
     # Build the network graph
