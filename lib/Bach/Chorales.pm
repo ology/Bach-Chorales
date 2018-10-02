@@ -46,7 +46,21 @@ any '/' => sub {
                                ->in(IMG_DIR);
     unlink $_ for @imgs;
 
-    # Build the chorales hash
+    my $chorales = _build_chorales();
+
+    my $filename;
+    $filename = _build_diagram( IMG_DIR, $chorale )
+        if $chorale;
+
+    template 'index' => {
+        page_title => 'Bach::Chorales',
+        chorale    => $chorale,
+        chorales   => $chorales,
+        image      => $filename,
+    };
+};
+
+sub _build_chorales {
     my $chorales = {};
 
     open( my $fh, '<', TITLES ) or die "Can't read " . TITLES . ": $!";
@@ -65,17 +79,8 @@ any '/' => sub {
 
     close $fh;
 
-    my $filename;
-    $filename = _build_diagram( IMG_DIR, $chorale )
-        if $chorale;
-
-    template 'index' => {
-        page_title => 'Bach::Chorales',
-        chorale    => $chorale,
-        chorales   => $chorales,
-        image      => $filename,
-    };
-};
+    return $chorales;
+}
 
 sub _build_diagram {
     my ( $dir, $id ) = @_;
