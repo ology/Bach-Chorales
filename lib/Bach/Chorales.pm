@@ -8,16 +8,13 @@ use File::Temp qw(tempfile);
 use File::Find::Rule;
 use GraphViz2;
 
-use lib '/Users/gene/sandbox/Music';
-use Bach;  # https://github.com/ology/Music/blob/master/Bach.pm
+use lib '/Users/gene/sandbox/Music-BachChoralHarmony/lib';
+use Music::BachChoralHarmony;
 
 use constant TYPE    => 'png';
 use constant IMG_DIR => 'public/diagrams';
-use constant DATA    => 'public/data/jsbach_chorals_harmony.data';
-use constant TITLES  => 'public/data/BWV-titles.txt';
-use constant KEYS    => 'public/data/BWV-keys.txt';
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 NAME
 
@@ -40,16 +37,25 @@ any '/' => sub {
 
     _purge_diagrams();
 
-    my $chorales = _build_chorales();
+    my $bach = Music::BachChoralHarmony->new;
+    my $chorales = $bach->parse();
 
     my $filename;
-    $filename = _build_diagram($chorale)
+    $filename = _build_diagram( $chorales->{$chorale} )
         if $chorale;
+
+    my $bwv_title;
+    for my $id ( sort keys %$chorales ) {
+        $bwv_title->{$id} = {
+            bwv   => $chorales->{$id}{bwv},
+            title => fix_latin( $chorales->{$id}{title} ),
+        };
+    }
 
     template 'index' => {
         page_title => 'Bach::Chorales',
         chorale    => $chorale,
-        chorales   => $chorales,
+        chorales   => $bwv_title,
         image      => $filename,
     };
 };
@@ -64,66 +70,21 @@ sub _purge_diagrams {
     unlink $_ for @imgs;
 }
 
-sub _build_chorales {
-    my $chorales = {};
-
-    open( my $fh, '<', TITLES ) or die "Can't read " . TITLES . ": $!";
-
-    while ( my $line = readline($fh) ) {
-        chomp $line;
-        next if $line =~ /#/ || $line =~ /^\s*$/ || $line =~ /UCI-ID/;
-
-        my @song = split /\s+/, $line, 3;
-
-        $chorales->{ $song[0] } = {
-            bwv   => $song[1],
-            title => fix_latin( $song[2] ),
-        } if @song == 3;
-    }
-
-    close $fh;
-
-    return $chorales;
-}
-
 sub _build_diagram {
-    my ($id) = @_;
+    my ($progression) = @_;
 
-    # Read in the Bach data
-    my ( undef, $progression ) = Bach::read_bach( DATA, 0 );
-
-    # Build the bigram and score hashes
-    my %bigram;
+    # Build the bigram score hash
     my %score;
+    my $last;
 
-    my $last = '';
+    for my $event ( @{ $progression->{events} } ) {
+        my $chord = $event->{chord};
 
-    for my $cluster ( @{ $progression->{$id} } ) {
-        my ( undef, undef, $chord ) = split /,/, $cluster;
-
-        if ( $last ) {
-            $score{ $last . ' ' . $chord }++;
-
-            if ( !grep { $last eq $_ } @{ $bigram{$chord} } ) {
-                push @{ $bigram{$last} }, $chord;
-            }
-        }
+        $score{ $last . ' ' . $chord }++
+            if $last;
 
         $last = $chord;
     }
-
-    # Collect the key signatures
-    my %keys;
-
-    open( my $fh, '<', KEYS ) or die "Can't read " . KEYS . ": $!";
-
-    while ( my $line = readline($fh) ) {
-        chomp $line;
-        my @parts = split /\s+/, $line;
-        $keys{ $parts[0] } = $parts[1];
-    }
-
-    close $fh;
 
     # Build the network graph
     my $g = GraphViz2->new(
@@ -135,22 +96,23 @@ sub _build_diagram {
     my %nodes;
     my %edges;
 
-    for my $i ( keys %bigram ) {
-        my $color = $i eq $keys{$id} ? 'red' : 'black';
+    my $key = $progression->{key};
+
+    for my $bigram ( keys %score ) {
+        my ( $i, $j ) = split ' ', $bigram;
+
+        my $color = $i eq $key ? 'red' : 'black';
 
         $g->add_node( name => $i, color => $color )
             unless $nodes{$i}++;
 
-        for my $j ( @{ $bigram{$i} } ) {
-            $color = $j eq $keys{$id} ? 'red' : 'black';
+        $color = $j eq $key ? 'red' : 'black';
 
-            $g->add_node( name => $j, color => $color )
-                unless $nodes{$j}++;
+        $g->add_node( name => $j, color => $color )
+            unless $nodes{$j}++;
 
-            my $name = $i . ' ' . $j;
-            $g->add_edge( from => $i, to => $j, label => $score{$name} )
-                unless $edges{$name}++;
-        }
+        $g->add_edge( from => $i, to => $j, label => $score{$bigram} )
+            unless $edges{$bigram}++;
     }
 
     my( undef, $filename ) = tempfile( DIR => IMG_DIR, SUFFIX => '.' . TYPE );
