@@ -8,7 +8,6 @@ use File::Temp qw(tempfile);
 use File::Find::Rule;
 use GraphViz2;
 
-use lib '/Users/gene/sandbox/Music-BachChoralHarmony/lib';
 use Music::BachChoralHarmony;
 
 use constant TYPE    => 'png';
