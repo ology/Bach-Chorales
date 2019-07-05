@@ -24,6 +24,7 @@ WriteMakefile(
         'File::Temp' => 0,
         'File::Find::Rule' => 0,
         'GraphViz2' => 0,
+        'Music::BachChoralHarmony' => 0,
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'Bach-Chorales-*' },
