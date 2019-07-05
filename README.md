@@ -7,12 +7,6 @@ the public/chorales/ subdirectory:
 > gunzip chorales.zip
 > mv chorales/* public/chorales
 
-Also, you must have my Bach.pm module which is located in my Music repo:
-
-> git clone https://github.com/ology/Music.git
-
-Then fix the path at the top of lib/Bach/Chorales.pm to your cloned location.
-
 Of course your system must have the required perl modules (as listed in the
 Makefile.PL PREREQ_PM section).
 
