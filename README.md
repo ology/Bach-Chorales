@@ -10,7 +10,7 @@ the public/chorales/ subdirectory:
 Of course your system must have the required perl modules (as listed in the
 Makefile.PL PREREQ_PM section).
 
-> cpanm .
+> cpanm --installdeps .
 
 To install them.
 
