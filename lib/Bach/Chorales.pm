@@ -8,6 +8,7 @@ use File::Temp qw(tempfile);
 use File::Find::Rule;
 use GraphViz2;
 
+use lib $ENV{HOME} . '/sandbox/Music-BachChoralHarmony/lib';
 use Music::BachChoralHarmony;
 
 use constant TYPE    => 'png';
@@ -141,11 +142,11 @@ L<GraphViz2>
 
 =head1 AUTHOR
  
-Gene Boggs <gene.boggs@gmail.com>
+Gene Boggs <gene@cpan.org>
  
 =head1 COPYRIGHT AND LICENSE
  
-This software is copyright (c) 2017 by Gene Boggs.
+This software is copyright (c) 2019 by Gene Boggs.
  
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
