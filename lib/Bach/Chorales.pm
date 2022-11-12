@@ -8,7 +8,7 @@ use File::Temp qw(tempfile);
 use File::Find::Rule ();
 use GraphViz2 ();
 
-use lib $ENV{HOME} . '/sandbox/Music-BachChoralHarmony/lib';
+#use lib $ENV{HOME} . '/sandbox/Music-BachChoralHarmony/lib'; # local author libs
 use Music::BachChoralHarmony;
 
 use constant TYPE    => 'png';
@@ -37,7 +37,12 @@ any '/' => sub {
 
     _purge_diagrams();
 
-    my $bach = Music::BachChoralHarmony->new;
+#    my $data_file = '/home/gene/sandbox/Music-BachChoralHarmony/share/jsbach_chorals_harmony.data'; # local author files
+#    my $key_title = '/home/gene/sandbox/Music-BachChoralHarmony/share/jsbach_BWV_keys_titles.txt';  # "
+    my $bach = Music::BachChoralHarmony->new(
+#        data_file => $data_file,
+#        key_title => $key_title,
+    );
     my $chorales = $bach->parse();
 
     my $filename;
