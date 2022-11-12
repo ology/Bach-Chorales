@@ -14,9 +14,11 @@ the cpanfile).
 
 To install them.
 
-Then just start it up with say plack:
+Then start it with, say, Plack:
 
 > plackup bin/app.psgi
+
+And then browse to http://127.0.0.1:5000/ - Voila!
 
 User interface:
 
