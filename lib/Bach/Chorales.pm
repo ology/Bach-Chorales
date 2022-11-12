@@ -5,8 +5,8 @@ package Bach::Chorales;
 use Dancer2;
 use Encoding::FixLatin qw(fix_latin);
 use File::Temp qw(tempfile);
-use File::Find::Rule;
-use GraphViz2;
+use File::Find::Rule ();
+use GraphViz2 ();
 
 use lib $ENV{HOME} . '/sandbox/Music-BachChoralHarmony/lib';
 use Music::BachChoralHarmony;
@@ -22,7 +22,7 @@ Bach::Chorales - Display Bach Chorales
 
 =head1 DESCRIPTION
 
-A C<Bach::Chorales> object displays Bach chorales.
+A C<Bach::Chorales> object plots Bach chorales.
 
 =head1 ROUTES
 
