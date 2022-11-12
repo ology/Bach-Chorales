@@ -20,4 +20,4 @@ Then just start it up with say plack:
 
 User interface:
 
-![User interface](https://raw.githubusercontent.com/ology/Bach-Chorales/master/public/images/screenshot.png)
+![User interface](https://raw.githubusercontent.com/ology/Bach-Chorales/master/UI.png)
