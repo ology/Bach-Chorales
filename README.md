@@ -5,7 +5,7 @@ To run, clone this repository and unzip the chorales.zip file and move
 its (PDF and MIDI file) contents to the public/chorales/ subdirectory:
 
 > gunzip chorales.zip
-> mv chorales/* public/chorales
+> mv chorales public/
 
 Of course your system must have the required perl modules (as listed in the
 Makefile.PL PREREQ_PM section).
