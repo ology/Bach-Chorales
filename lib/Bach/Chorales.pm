@@ -18,7 +18,7 @@ our $VERSION = '0.02';
 
 =head1 NAME
 
-Bach::Chorales - Display Bach Chorales
+Bach::Chorales - Plot Bach Chorales
 
 =head1 DESCRIPTION
 
