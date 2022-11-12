@@ -7,8 +7,8 @@ its (PDF and MIDI file) contents to the public/chorales/ subdirectory:
 > gunzip chorales.zip
 > mv chorales public/
 
-Of course your system must have the required perl modules (as listed in the
-Makefile.PL PREREQ_PM section).
+Of course your system must have the required perl modules (as listed in
+the cpanfile).
 
 > cpanm --installdeps .
 
