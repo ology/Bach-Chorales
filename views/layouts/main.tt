@@ -21,6 +21,7 @@
 
 <div id="footer">
     Built by <a href="http://gene.ology.net/">Gene Boggs</a>
+    with <a href="https://www.perl.org/">Perl</a> and <a href="https://metacpan.org/pod/Dancer2">Dancer2</a>
 </div>
 
 </body>
